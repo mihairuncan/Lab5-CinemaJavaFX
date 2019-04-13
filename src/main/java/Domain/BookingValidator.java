@@ -18,6 +18,10 @@ public class BookingValidator implements IValidator<Booking> {
         if (booking.getDate().getYear() > Calendar.getInstance().get(Calendar.YEAR)) {
             errors += "The year of booking must be less than " + Calendar.getInstance().get(Calendar.YEAR);
         }
+        boolean palindromeId = PalindromeIdValidator.isPalindrome(booking.getId());
+        if (!palindromeId) {
+            errors += "The id " + booking.getId() + " isn't palindrome";
+        }
 
         if (!errors.isEmpty()) {
             throw new BookingValidatorException("\n" + errors);

@@ -1,6 +1,5 @@
 package UI;
 
-import Domain.Movie;
 import Service.MovieService;
 import Service.movieByBookingsVM;
 import javafx.application.Platform;

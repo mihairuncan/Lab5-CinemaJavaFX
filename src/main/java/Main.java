@@ -1,7 +1,6 @@
 import Domain.*;
 
 import Repository.IRepository;
-//import Repository.InMemoryRepository;
 import Repository.JsonFileRepository;
 import Service.CustomerCardService;
 import Service.MovieService;
@@ -47,7 +46,6 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-
         launch(args);
     }
 }

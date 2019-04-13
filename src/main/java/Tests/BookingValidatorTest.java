@@ -20,7 +20,5 @@ class BookingValidatorTest {
         } catch (RuntimeException rex) {
             assertTrue(true);
         }
-
-
     }
 }

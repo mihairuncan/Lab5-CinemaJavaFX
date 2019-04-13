@@ -4,4 +4,3 @@
 {"name":"Name4","surname":"Surname4","CNP":"7111315145111","dateOfBirth":{"year":1995,"month":6,"day":27},"registrationDate":{"year":2018,"month":4,"day":23},"bonusPoints":4,"id":"4"}
 {"name":"Name5","surname":"Surname5","CNP":"4111311145111","dateOfBirth":{"year":1994,"month":7,"day":12},"registrationDate":{"year":2018,"month":7,"day":25},"bonusPoints":5,"id":"5"}
 {"name":"Name6","surname":"Surname6","CNP":"2111311145111","dateOfBirth":{"year":1989,"month":8,"day":8},"registrationDate":{"year":2018,"month":12,"day":6},"bonusPoints":4,"id":"6"}
-{"name":"Name7","surname":"Surname7","CNP":"2311311145111","dateOfBirth":{"year":1988,"month":12,"day":13},"registrationDate":{"year":2018,"month":11,"day":17},"bonusPoints":4,"id":"7"}

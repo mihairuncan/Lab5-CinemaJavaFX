@@ -30,6 +30,10 @@ public class CustomerCardValidator implements IValidator<CustomerCard> {
         if (card.getBonusPoints() < 0) {
             errors += "The bonus points must be >= 0 \n";
         }
+        boolean palindromeId = PalindromeIdValidator.isPalindrome(card.getId());
+        if (!palindromeId) {
+            errors += "The id " + card.getId() + " isn't palindrome";
+        }
 
         if (!errors.isEmpty()) {
             throw new CardValidatorException("\n" + errors);

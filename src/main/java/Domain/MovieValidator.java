@@ -20,6 +20,10 @@ public class MovieValidator implements IValidator<Movie> {
         if (movie.getYear() < 0 || movie.getYear() > Calendar.getInstance().get(Calendar.YEAR)+1) {
             errors += "The movie's year must be valid! \n";
         }
+        boolean palindromeId = PalindromeIdValidator.isPalindrome(movie.getId());
+        if (!palindromeId) {
+            errors += "The id " + movie.getId() + " isn't palindrome";
+        }
 
         if (!errors.isEmpty()) {
             throw new MovieValidatorException(errors);
