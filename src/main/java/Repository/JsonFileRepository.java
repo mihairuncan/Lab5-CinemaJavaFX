@@ -4,10 +4,7 @@ import Domain.Entity;
 import Domain.IValidator;
 import com.google.gson.Gson;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,10 +28,8 @@ public class JsonFileRepository<T extends Entity> implements IRepository<T> {
         Gson gson = new Gson();
         try (FileReader in = new FileReader(filename)) {
             try (BufferedReader bufferedReader = new BufferedReader(in)) {
-//                String contents = gson.fromJson(bufferedReader.readLine(), Collection<type>);
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    T entity = gson.fromJson(line, type);
+                T[] entities = gson.fromJson(bufferedReader, type);
+                for (T entity : entities) {
                     storage.put(entity.getId(), entity);
                 }
             }
@@ -47,58 +42,55 @@ public class JsonFileRepository<T extends Entity> implements IRepository<T> {
         Gson gson = new Gson();
         try (FileWriter out = new FileWriter(filename)) {
             try (BufferedWriter bufferedWriter = new BufferedWriter(out)) {
-//                bufferedWriter.write(gson.toJson(storage.values()));
-                for (T entity : storage.values()) {
-                    bufferedWriter.write(gson.toJson(entity));
-                    bufferedWriter.newLine();
-                }
+
+                bufferedWriter.write(gson.toJson(storage.values()));
             }
         } catch (Exception ex) {
             System.out.println("Write to file error: " + ex.getMessage());
         }
     }
 
-    @Override
-    public T getById(String id) {
-        loadFromFile();
-        return storage.get(id);
-    }
-
-    @Override
-    public void insert(T entity) {
-        loadFromFile();
-        if (storage.containsKey(entity.getId())) {
-            throw new RepositoryException("A entity with " + entity.getId() + " already exists");
+        @Override
+        public T getById (String id){
+            loadFromFile();
+            return storage.get(id);
         }
-        validator.validate(entity);
-        storage.put(entity.getId(), entity);
-        writeToFile();
-    }
 
-    @Override
-    public void update(T entity) {
-        loadFromFile();
-        if (!storage.containsKey(entity.getId())) {
-            throw new RepositoryException(String.format("A entity with %s id doesn't exists!", entity.getId()));
+        @Override
+        public void insert (T entity){
+            loadFromFile();
+            if (storage.containsKey(entity.getId())) {
+                throw new RepositoryException("A entity with " + entity.getId() + " already exists");
+            }
+            validator.validate(entity);
+            storage.put(entity.getId(), entity);
+            writeToFile();
         }
-        validator.validate(entity);
-        storage.put(entity.getId(), entity);
-        writeToFile();
-    }
 
-    @Override
-    public void remove(String id) {
-        loadFromFile();
-        if (!storage.containsKey(id)) {
-            throw new RuntimeException("There is no entity with the given id to remove.");
+        @Override
+        public void update (T entity){
+            loadFromFile();
+            if (!storage.containsKey(entity.getId())) {
+                throw new RepositoryException(String.format("A entity with %s id doesn't exists!", entity.getId()));
+            }
+            validator.validate(entity);
+            storage.put(entity.getId(), entity);
+            writeToFile();
         }
-        storage.remove(id);
-        writeToFile();
-    }
 
-    @Override
-    public List<T> getAll() {
-        loadFromFile();
-        return new ArrayList<>(storage.values());
+        @Override
+        public void remove (String id){
+            loadFromFile();
+            if (!storage.containsKey(id)) {
+                throw new RuntimeException("There is no entity with the given id to remove.");
+            }
+            storage.remove(id);
+            writeToFile();
+        }
+
+        @Override
+        public List<T> getAll () {
+            loadFromFile();
+            return new ArrayList<>(storage.values());
+        }
     }
-}

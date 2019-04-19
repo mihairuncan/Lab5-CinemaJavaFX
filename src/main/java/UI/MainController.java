@@ -325,10 +325,10 @@ public class MainController {
             ExtraBonusPointsController controller = fxmlLoader.getController();
             controller.setService(cardService);
             stage.showAndWait();
-            //
+
             cards.clear();
             cards.addAll(cardService.getAll());
-            //
+
         } catch (IOException e) {
             Logger logger = Logger.getLogger(getClass().getName());
             logger.log(Level.SEVERE, "Failed to create new Window: Extra bonus points add.", e);

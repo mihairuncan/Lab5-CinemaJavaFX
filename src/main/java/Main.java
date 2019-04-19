@@ -27,9 +27,9 @@ public class Main extends Application {
         IValidator<CustomerCard> cardValidator = new CustomerCardValidator();
         IValidator<Booking> bookingValidator = new BookingValidator();
 
-        IRepository<Movie> moviesRepository = new JsonFileRepository<>(movieValidator, "movies.json", Movie.class);
-        IRepository<CustomerCard> cardsRepository = new JsonFileRepository<>(cardValidator, "cards.json", CustomerCard.class);
-        IRepository<Booking> bookingsRepository = new JsonFileRepository<>(bookingValidator, "bookings.json", Booking.class);
+        IRepository<Movie> moviesRepository = new JsonFileRepository<>(movieValidator, "movies.json", Movie[].class);
+        IRepository<CustomerCard> cardsRepository = new JsonFileRepository<>(cardValidator, "cards.json", CustomerCard[].class);
+        IRepository<Booking> bookingsRepository = new JsonFileRepository<>(bookingValidator, "bookings.json", Booking[].class);
 
 
         MovieService movieService = new MovieService(moviesRepository,bookingsRepository);
